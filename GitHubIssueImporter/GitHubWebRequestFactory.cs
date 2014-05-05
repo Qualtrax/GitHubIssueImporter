@@ -24,10 +24,11 @@ namespace GitHubIssueImporter
 
         public HttpWebRequest Create(String path, dynamic obj)
         {
-            var request = WebRequest.Create(BuildUrl(path)) as HttpWebRequest;
+            var request = WebRequest.Create(repositoryUri + path) as HttpWebRequest;
             request.Method = "POST";
             request.Accept = "application/vnd.github.v3+json";
             request.UserAgent = "GitHub-Issue-Importer";
+            request.Headers.Add("Authorization", "token " + accessToken);
 
             var json = serializer.Serialize(obj);
 
@@ -38,11 +39,6 @@ namespace GitHubIssueImporter
             }
 
             return request;
-        }
-
-        private String BuildUrl(String path)
-        {
-            return repositoryUri + path + "?access_token=" + accessToken;
         }
     }
 }

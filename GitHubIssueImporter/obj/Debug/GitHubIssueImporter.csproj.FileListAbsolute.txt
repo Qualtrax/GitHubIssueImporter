@@ -1,8 +1,0 @@
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\bin\Debug\Templates\Issue.Body.template
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\bin\Debug\Templates\Issue.Title.template
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\bin\Debug\GitHubIssueImporter.exe.config
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\bin\Debug\GitHubIssueImporter.exe
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\bin\Debug\GitHubIssueImporter.pdb
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\bin\Debug\Nustache.Core.dll
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\obj\Debug\GitHubIssueImporter.exe
-D:\Work\Scratch\GitHubIssueImporter\GitHubIssueImporter\obj\Debug\GitHubIssueImporter.pdb

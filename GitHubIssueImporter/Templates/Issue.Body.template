@@ -1,7 +1,9 @@
 ﻿## Description
 {{Description}}
+{{#ReproductionSteps}}
 ## Repo Steps
 {{ReproductionSteps}}{{^ReproductionSteps}}None{{/ReproductionSteps}}
+{{/ReproductionSteps}}
 ## Related Items
 {{#RelatedItems}}
 * {{TypeAppreviation}}{{Id}}
