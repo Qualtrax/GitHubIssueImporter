@@ -29,6 +29,7 @@ namespace GitHubIssueImporter
             request.Accept = "application/vnd.github.v3+json";
             request.UserAgent = "GitHub-Issue-Importer";
             request.Headers.Add("Authorization", "token " + accessToken);
+            request.Timeout = 2 * 60 * 1000;
 
             var json = serializer.Serialize(obj);
 

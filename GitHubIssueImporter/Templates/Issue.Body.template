@@ -1,8 +1,8 @@
 ﻿## Description
-{{Description}}
+{{{Description}}}{{^Description}}None{{/Description}}
 {{#ReproductionSteps}}
 ## Repo Steps
-{{ReproductionSteps}}{{^ReproductionSteps}}None{{/ReproductionSteps}}
+{{{ReproductionSteps}}}{{^ReproductionSteps}}None{{/ReproductionSteps}}
 {{/ReproductionSteps}}
 ## Related Items
 {{#RelatedItems}}
@@ -13,7 +13,7 @@
 {{#Comments}}
 {{Commenter}} on {{Timestamp}}
 ```
-{{Text}}
+{{{Text}}}
 ```
 
 {{/Comments}}

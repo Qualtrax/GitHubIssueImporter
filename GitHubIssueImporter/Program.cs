@@ -17,6 +17,9 @@ namespace GitHubIssueImporter
                 ConfigurationManager.AppSettings["GitHubRepositoryApiUrl"],
                 ConfigurationManager.AppSettings["GitHubAccessToken"]);
 
+            var defectLabels = ConfigurationManager.AppSettings["DefectLabels"].Split(',');
+            var featureLabels = ConfigurationManager.AppSettings["FeatureLabels"].Split(',');
+
             var itemId = 0;
 
             while (true)
@@ -34,20 +37,31 @@ namespace GitHubIssueImporter
                     continue;
 
                 Item item = null;
+                String[] labels = null;
 
                 if (itemType == ItemType.Defect)
+                {
                     item = itemProjector.GetDefect(itemId);
+                    labels = defectLabels;
+                }
                 else if (itemType == ItemType.Feature)
+                {
                     item = itemProjector.GetFeature(itemId);
+                    labels = featureLabels;
+                }
                 else if (itemType == ItemType.Incident)
+                {
                     throw new NotImplementedException("Incidents are not yet supported");
+                }
 
                 var createIssueRequest = requestFactory.Create("/issues", new
                 {
                     title = Render.FileToString(@"Templates\Issue.Title.template", item),
-                    body = Render.FileToString(@"Templates\Issue.Body.template", item)
-                })
-                .GetResponse();
+                    body = Render.FileToString(@"Templates\Issue.Body.template", item),
+                    labels = labels
+                });
+
+                createIssueRequest.GetResponse().Dispose();
             }
         }
 

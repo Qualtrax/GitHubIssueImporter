@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GitHubIssueImporter
@@ -158,9 +159,13 @@ namespace GitHubIssueImporter
 
         private String Sanitize(String str)
         {
-            return WebUtility.HtmlDecode(str)
-                .Replace("<br />", Environment.NewLine)
-                .Replace("<BR />", Environment.NewLine);
+            var output = WebUtility.HtmlDecode(str);
+            output = output.Replace("<br />", Environment.NewLine);
+            output = output.Replace("<br>", Environment.NewLine);
+            output = output.Replace("<BR />", Environment.NewLine);
+            output = output.Replace("<BR>", Environment.NewLine);
+            output = Regex.Replace(output, "<[^>]*(>|$)", String.Empty);
+            return output.Trim();
         }
     }
 }
