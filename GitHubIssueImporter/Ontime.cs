@@ -17,6 +17,7 @@ namespace GitHubIssueImporter
     {
         Defect = 0,
         Feature = 1,
+        Task = 2,
         Incident = 3
     }
 
@@ -38,6 +39,14 @@ namespace GitHubIssueImporter
         }
     }
 
+    public class Task : Item 
+    {
+        public Task()
+        {
+            Abbreviation = "T";
+        }
+    }
+
     public class RelatedItem
     {
         public Int32 Id;
@@ -50,6 +59,20 @@ namespace GitHubIssueImporter
                 case ItemType.Defect: return "D";
                 case ItemType.Feature: return "F";
                 case ItemType.Incident: return "i";
+                case ItemType.Task: return "T";
+            }
+
+            return String.Empty;
+        }
+
+        public String Url()
+        {
+            switch ((ItemType)Type)
+            {
+                case ItemType.Defect: return String.Format("http://ontime.ccs-inc.com/defects/addeditdefect.aspx?defectid={0}&fulledit=false&inWindow=1", Id);;
+                case ItemType.Feature: return String.Format("http://ontime.ccs-inc.com/features/addeditfeature.aspx?featureid={0}&fulledit=false&inWindow=1", Id);;
+                case ItemType.Incident: return String.Empty;
+                case ItemType.Task: return String.Format("http://ontime.ccs-inc.com/tasks/addedittask.aspx?taskid={0}&fulledit=false&inWindow=1", Id);
             }
 
             return String.Empty;

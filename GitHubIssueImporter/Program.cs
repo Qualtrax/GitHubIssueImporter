@@ -19,6 +19,7 @@ namespace GitHubIssueImporter
 
             var defectLabels = ConfigurationManager.AppSettings["DefectLabels"].Split(',');
             var featureLabels = ConfigurationManager.AppSettings["FeatureLabels"].Split(',');
+            var taskLabels = ConfigurationManager.AppSettings["TaskLabels"].Split(',');
 
             var itemId = 0;
 
@@ -28,7 +29,7 @@ namespace GitHubIssueImporter
 
                 var input = Console.ReadLine();
 
-                if (input.Length < 2 || Char.IsLetter(input.First()) == false)
+                if (input.Length < 2 || new[] { 'd','f','i', 't' }.Contains(Char.ToLower(input.First())) == false)
                     continue;
 
                 var itemType = Parse(input.First());
@@ -48,6 +49,11 @@ namespace GitHubIssueImporter
                 {
                     item = itemProjector.GetFeature(itemId);
                     labels = featureLabels;
+                }
+                else if (itemType == ItemType.Task)
+                {
+                    item = itemProjector.GetTask(itemId);
+                    labels = taskLabels;
                 }
                 else if (itemType == ItemType.Incident)
                 {
@@ -76,6 +82,8 @@ namespace GitHubIssueImporter
                 case 'f': return ItemType.Feature;
                 case 'I':
                 case 'i': return ItemType.Incident;
+                case 'T':
+                case 't': return ItemType.Task;
             }
 
             throw new ArgumentOutOfRangeException("itemTypeAbbreviation");

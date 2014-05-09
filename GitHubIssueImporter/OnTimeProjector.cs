@@ -90,6 +90,41 @@ namespace GitHubIssueImporter
             return feature;
         }
 
+        public Task GetTask(Int32 id)
+        {
+            var task = new Task();
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var sql = @"
+                    SELECT TaskId, Name, Description
+                    FROM Tasks
+                    WHERE TaskId = @Id";
+
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read() == false)
+                            throw new ArgumentOutOfRangeException("id", id, "No defect was found with the provided id.");
+
+                        task.Id = Convert.ToInt32(reader["TaskId"]);
+                        task.Title = Convert.ToString(reader["Name"]);
+                        task.Description = Sanitize(Convert.ToString(reader["Description"]));
+                    }
+                }
+
+                task.Comments = GetComments(id, ItemType.Feature, connection);
+                task.RelatedItems = GetRelatedItems(id, connection);
+            }
+
+            return task;
+        }
+
         private IEnumerable<Comment> GetComments(Int32 itemId, ItemType itemType, SqlConnection connection)
         {
             var comments = new List<Comment>();
@@ -125,9 +160,9 @@ namespace GitHubIssueImporter
             var relatedItems = new List<RelatedItem>();
 
             var sql = @"
-                SELECT ChildItemId AS Id, ChildItemTypeId AS ItemType FROM ItemRelations WHERE ParentItemId = @DefectId AND ChildItemTypeId IN (0,1)
+                SELECT ChildItemId AS Id, ChildItemTypeId AS ItemType FROM ItemRelations WHERE ParentItemId = @DefectId AND ChildItemTypeId IN (0,1,2)
                 UNION
-                SELECT ParentItemId, ParentItemTypeId FROM ItemRelations WHERE ChildItemId = @DefectId AND ParentItemTypeId IN (0,1)
+                SELECT ParentItemId, ParentItemTypeId FROM ItemRelations WHERE ChildItemId = @DefectId AND ParentItemTypeId IN (0,1,2)
                 UNION
                 SELECT RIGHT(i.IncidentNumber, LEN(i.IncidentNumber) - 1) IncidentNumber, 3
                 FROM ItemRelations r

@@ -4,9 +4,10 @@
 ## Repo Steps
 {{{ReproductionSteps}}}{{^ReproductionSteps}}None{{/ReproductionSteps}}
 {{/ReproductionSteps}}
+
 ## Related Items
 {{#RelatedItems}}
-* {{TypeAppreviation}}{{Id}}
+* [{{TypeAppreviation}}{{Id}}]({{{Url}}})
 {{/RelatedItems}}
 {{^RelatedItems}}None{{/RelatedItems}}
 ## Comments
