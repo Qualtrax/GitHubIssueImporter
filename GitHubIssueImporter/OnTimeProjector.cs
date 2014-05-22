@@ -26,7 +26,7 @@ namespace GitHubIssueImporter
             using (var connection = new SqlConnection(connectionString))
             {
                 var sql = @"
-                    SELECT DefectId, Name, Description, ReplicationProcedures
+                    SELECT DefectId, Name, Description, ReplicationProcedures, BuildNumber
                     FROM Defects
                     WHERE DefectId = @Id";
 
@@ -45,6 +45,7 @@ namespace GitHubIssueImporter
                         defect.Title = Convert.ToString(reader["Name"]);
                         defect.Description =  Sanitize(Convert.ToString(reader["Description"]));
                         defect.ReproductionSteps = Sanitize(Convert.ToString(reader["ReplicationProcedures"]));
+                        defect.FoundIn = SanitizeBuildNumber(Convert.ToString(reader["BuildNumber"]));
                     }
                 }
 
@@ -53,6 +54,16 @@ namespace GitHubIssueImporter
             }
 
             return defect;
+        }
+
+        private String SanitizeBuildNumber(String buildNumber)
+        {
+            var sanitizedText = buildNumber.Trim();
+
+            if (sanitizedText.Equals("0"))
+                return String.Empty;
+
+            return sanitizedText;
         }
 
         public Feature GetFeature(Int32 id)
@@ -194,8 +205,7 @@ namespace GitHubIssueImporter
 
         private String Sanitize(String str)
         {
-            var output = WebUtility.HtmlDecode(str);
-            output = output.Replace("<br />", Environment.NewLine);
+            var output = str.Replace("<br />", Environment.NewLine);
             output = output.Replace("<br>", Environment.NewLine);
             output = output.Replace("<BR />", Environment.NewLine);
             output = output.Replace("<BR>", Environment.NewLine);

@@ -1,21 +1,27 @@
-﻿## Description
+﻿[{{Abbreviation}}{{Id}}]({{{Url}}})
+
 {{{Description}}}{{^Description}}None{{/Description}}
+
+{{#FoundIn}}Found in version {{FoundIn}}{{/FoundIn}}
+
 {{#ReproductionSteps}}
-## Repo Steps
+Repo Steps
+----------
 {{{ReproductionSteps}}}{{^ReproductionSteps}}None{{/ReproductionSteps}}
 {{/ReproductionSteps}}
 
-## Related Items
+Related Items
+-------------
 {{#RelatedItems}}
 * [{{TypeAppreviation}}{{Id}}]({{{Url}}})
-{{/RelatedItems}}
-{{^RelatedItems}}None{{/RelatedItems}}
-## Comments
+{{/RelatedItems}}{{^RelatedItems}}None{{/RelatedItems}}
+
+Comments
+--------
 {{#Comments}}
 {{Commenter}} on {{Timestamp}}
 ```
 {{{Text}}}
 ```
 
-{{/Comments}}
-{{^Comments}}None{{/Comments}}
+{{/Comments}}{{^Comments}}None{{/Comments}}
