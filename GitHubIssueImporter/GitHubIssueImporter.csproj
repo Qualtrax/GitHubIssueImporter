@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LinkTemplateConstants.cs" />
     <Compile Include="OnTime.cs" />
     <Compile Include="GitHubWebRequestFactory.cs" />
     <Compile Include="OnTimeProjector.cs" />

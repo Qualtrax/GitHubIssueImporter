@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace GitHubIssueImporter
 {
@@ -129,7 +124,7 @@ namespace GitHubIssueImporter
                     }
                 }
 
-                task.Comments = GetComments(id, ItemType.Feature, connection);
+                task.Comments = GetComments(id, ItemType.Task, connection);
                 task.RelatedItems = GetRelatedItems(id, connection);
             }
 

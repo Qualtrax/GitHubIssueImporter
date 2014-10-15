@@ -31,7 +31,7 @@ namespace GitHubIssueImporter
 
         public override String Url
         {
-            get { return String.Format("http://ontime.ccs-inc.com/defects/addeditdefect.aspx?defectid={0}&fulledit=false&inWindow=1", Id); }
+            get { return String.Format(LinkTemplateConstants.Defect, Id); }
         }
 
         public Defect()
@@ -46,7 +46,7 @@ namespace GitHubIssueImporter
 
         public override String Url
         {
-            get { return String.Format("http://ontime.ccs-inc.com/features/addeditfeature.aspx?featureid={0}&fulledit=false&inWindow=1", Id); }
+            get { return String.Format(LinkTemplateConstants.Feature, Id); }
         }
 
         public Feature()
@@ -59,7 +59,7 @@ namespace GitHubIssueImporter
     {
         public override String Url
         {
-            get { return String.Format("http://ontime.ccs-inc.com/tasks/addedittask.aspx?taskid={0}&fulledit=false&inWindow=1", Id); }
+            get { return String.Format(LinkTemplateConstants.Task, Id); }
         }
 
         public Task()
@@ -90,10 +90,10 @@ namespace GitHubIssueImporter
         {
             switch ((ItemType)Type)
             {
-                case ItemType.Defect: return String.Format("http://ontime.ccs-inc.com/defects/addeditdefect.aspx?defectid={0}&fulledit=false&inWindow=1", Id);
-                case ItemType.Feature: return String.Format("http://ontime.ccs-inc.com/features/addeditfeature.aspx?featureid={0}&fulledit=false&inWindow=1", Id);
+                case ItemType.Defect: return String.Format(LinkTemplateConstants.Defect, Id);
+                case ItemType.Feature: return String.Format(LinkTemplateConstants.Feature, Id);
                 case ItemType.Incident: return String.Empty;
-                case ItemType.Task: return String.Format("http://ontime.ccs-inc.com/tasks/addedittask.aspx?taskid={0}&fulledit=false&inWindow=1", Id);
+                case ItemType.Task: return String.Format(LinkTemplateConstants.Task, Id);
             }
 
             return String.Empty;
